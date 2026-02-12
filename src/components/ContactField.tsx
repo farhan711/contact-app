@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -33,6 +33,7 @@ export default function ContactField({
   const [query, setQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const debouncedQuery = useDebounce(query, 300);
+  const anchorRef = useRef<HTMLDivElement>(null);
 
   const { search, loadUsers, loaded, loading: usersLoading } = useSearchStore();
 
@@ -76,7 +77,7 @@ export default function ContactField({
 
       {!contact && (
         <ClickAwayListener onClickAway={() => setShowResults(false)}>
-          <Box sx={{ position: "relative" }}>
+          <Box ref={anchorRef}>
             <Box display="flex" gap={1}>
               <TextField
                 size="small"
@@ -88,6 +89,12 @@ export default function ContactField({
                   setShowResults(true);
                 }}
                 onFocus={() => setShowResults(true)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    height: 40,
+                    borderRadius: "12px",
+                  },
+                }}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -107,6 +114,8 @@ export default function ContactField({
                   px: 2,
                   whiteSpace: "nowrap",
                   flexShrink: 0,
+                  height: 40,
+                  borderRadius: "12px",
                   "&:hover": {
                     borderColor: "#60a5fa",
                     background: "rgba(96, 165, 250, 0.08)",
@@ -121,6 +130,7 @@ export default function ContactField({
                 results={results}
                 loading={usersLoading}
                 onSelect={handleSelect}
+                anchorEl={anchorRef.current}
               />
             )}
           </Box>
