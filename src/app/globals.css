@@ -1,16 +1,16 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
   min-height: 100vh;
-  background-color: #0a0a1a;
+  background-color: #0a0a1a !important;
   background-image:
     linear-gradient(rgba(96, 165, 250, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(96, 165, 250, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(90deg, rgba(96, 165, 250, 0.06) 1px, transparent 1px) !important;
+  background-size: 48px 48px !important;
   position: relative;
 }
 
